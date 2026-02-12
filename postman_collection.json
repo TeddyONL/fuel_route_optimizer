@@ -1,0 +1,120 @@
+{
+  "info": {
+    "name": "Fuel Route Optimizer API",
+    "description": "Test collection for route optimization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:8000/health",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["health"]
+        },
+        "description": "Check if service is healthy and loaded"
+      }
+    },
+    {
+      "name": "Optimize Route - LA to SF",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Los Angeles, CA\",\n  \"end\": \"San Francisco, CA\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/optimize",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "optimize"]
+        },
+        "description": "Optimize route from LA to SF (cold request - ~400ms)"
+      }
+    },
+    {
+      "name": "Optimize Route - LA to SF (Cached)",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Los Angeles, CA\",\n  \"end\": \"San Francisco, CA\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/optimize",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "optimize"]
+        },
+        "description": "Same request - should be cached (~12ms)"
+      }
+    },
+    {
+      "name": "Optimize Route - Custom Parameters",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"Los Angeles, CA\",\n  \"end\": \"Phoenix, AZ\",\n  \"max_range\": 400,\n  \"mpg\": 12.0\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/optimize",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "optimize"]
+        },
+        "description": "Route with custom vehicle parameters"
+      }
+    },
+    {
+      "name": "Optimize Route - Coordinates",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"start\": \"34.0522,-118.2437\",\n  \"end\": \"37.7749,-122.4194\"\n}"
+        },
+        "url": {
+          "raw": "http://localhost:8000/api/optimize",
+          "protocol": "http",
+          "host": ["localhost"],
+          "port": "8000",
+          "path": ["api", "optimize"]
+        },
+        "description": "Use coordinates instead of addresses"
+      }
+    }
+  ]
+}

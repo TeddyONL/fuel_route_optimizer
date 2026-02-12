@@ -1,0 +1,33 @@
+# Core Django
+Django==5.0.1
+djangorestframework==3.14.0
+
+# Database
+psycopg2-binary==2.9.9
+
+# Caching
+django-redis==5.4.0
+redis==5.0.1
+
+# Spatial/Scientific Computing (THE SECRET WEAPON)
+numpy==1.26.3
+scipy==1.11.4
+
+# External Services
+requests==2.31.0
+polyline==2.0.2
+
+# Configuration
+python-decouple==3.8
+
+# Production Server
+gunicorn==21.2.0
+
+# Testing
+pytest==7.4.3
+pytest-django==4.7.0
+pytest-benchmark==4.0.0
+
+# Development
+black==23.12.1
+flake8==7.0.0
