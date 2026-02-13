@@ -229,7 +229,7 @@ fuel_route_optimizer/
 **Total Core Code:** ~550 lines  
 **Total Project:** ~1,000 lines with tests
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables
 
@@ -388,3 +388,6 @@ Health check endpoint.
   }
 }
 ```
+## Author
+
+*  TEDDY OLELA
