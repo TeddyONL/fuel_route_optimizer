@@ -15,7 +15,7 @@ logger = logging.getLogger('api')
 
 
 class OptimizeRouteAPI(APIView):
-    "
+    """
     POST /api/optimize
     
     Request:
@@ -34,7 +34,7 @@ class OptimizeRouteAPI(APIView):
         "fuel": {...},
         "performance": {...}
     }
-    "
+    """
     
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -200,7 +200,7 @@ class OptimizeRouteAPI(APIView):
     def _generate_map_url(self, start: str, end: str, stops: list) -> str:
         """Generate Google Maps URL with waypoints"""
         if not stops:
-            return f"https://www.google.com/maps/dir/{start}/{end}"
+            return f"https://www.google.com{start}/{end}"
         
         waypoints = '|'.join(
             f"{stop.location[0]},{stop.location[1]}"
@@ -208,7 +208,7 @@ class OptimizeRouteAPI(APIView):
         )
         
         return (
-            f"https://www.google.com/maps/dir/?api=1"
+            f"https://www.google.com?api=1"
             f"&origin={start}"
             f"&destination={end}"
             f"&waypoints={waypoints}"
@@ -236,17 +236,8 @@ class HealthCheckAPI(APIView):
         return Response(
             {
                 'status': 'healthy' if is_healthy else 'unhealthy',
-                'spatial_index': {
-                    'loaded': stats['is_loaded'],
-                    'station_count': stats['station_count'],
-                    'memory_mb': round(stats['memory_mb'], 2)
-                },
-                'map_service': {
-                    'configured': bool(settings.ORS_API_KEY)
-                },
-                'cache': {
-                    'backend': 'redis' if 'redis' in settings.CACHES['default']['BACKEND'].lower() else 'other'
-                }
+                'stats': stats,
+                'map_service': 'configured' if settings.ORS_API_KEY else 'missing'
             },
             status=status.HTTP_200_OK if is_healthy else status.HTTP_503_SERVICE_UNAVAILABLE
         )
